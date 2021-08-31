@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\PermissionsController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('layouts.admin');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+
+/* Start Admin Route */
+// Permissions
+Route::resource('permissions', PermissionsController::class);
+// Roles
+Route::resource('roles', RolesController::class);
+// Users
+Route::resource('users', UsersController::class);
+/* End Admin Route */
