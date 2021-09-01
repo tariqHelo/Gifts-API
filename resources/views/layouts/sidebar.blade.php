@@ -82,16 +82,37 @@
             </ul>
           </li>
          @endcan 
-           <li class="nav-item">
+          <li class="nav-item has-treeview">
             <a href="" class="nav-link">
               <i class="nav-icon fa fa-desktop"></i>
               <p>
-                المنتجات
+               إدارة المنتجات            
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('products.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> المنتجات</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('permissions.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>الماركات</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('roles.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>التخصيص</p>
+                </a>
+              </li>
+            </ul>
           </li>
            <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('categories.index')}}" class="nav-link">
               <i class="nav-icon fa fa-lightbulb"></i>
               <p>
                 التصنيفات                

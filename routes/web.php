@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UsersController;
+
+
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,3 +37,8 @@ Route::resource('roles', RolesController::class);
 // Users
 Route::resource('users', UsersController::class);
 /* End Admin Route */
+
+ Route::resource('/categories', CategoriesController::class);
+ Route::get('categories/delete/{id}', [CategoriesController::class , 'destroy'])->name('category.delete');
+
+ Route::resource('/products', ProductController::class);

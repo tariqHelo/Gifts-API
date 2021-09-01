@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('category_id')->constrained('categrories')->on('id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained('categories')->on('id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('status' , ['active', 'draft'])->default('draft');
             $table->longText('description');
             $table->timestamps();

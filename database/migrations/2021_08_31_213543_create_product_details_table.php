@@ -16,13 +16,13 @@ class CreateProductDetailsTable extends Migration
         Schema::create('product_details', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('number');
+            $table->integer('number');
             $table->string('type');
-            $table->string('barcode');
-            $table->string('qty');
-            $table->string('price');
-            $table->string('purchasing_price');
-            $table->string('purchasing_price2');
+            $table->integer('barcode');
+            $table->integer('qty');
+            $table->integer('price');
+            $table->integer('purchasing_price');
+            $table->integer('purchasing_price2');
             $table->string('image');
             $table->enum('personalization', ['active', 'draft']);
             $table->enum('brand', ['active', 'draft']);
