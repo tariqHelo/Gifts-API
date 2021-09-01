@@ -10,6 +10,10 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductController;
 
+use App\Http\Controllers\PersonalizationController;
+use App\Http\Controllers\BrandsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,3 +46,9 @@ Route::resource('users', UsersController::class);
  Route::get('categories/delete/{id}', [CategoriesController::class , 'destroy'])->name('category.delete');
 
  Route::resource('/products', ProductController::class);
+
+ Route::resource('/brands', BrandsController::class);
+ Route::get('brands/delete/{id}', [BrandsController::class , 'destroy'])->name('brands.delete');
+
+ Route::resource('/personalizations', PersonalizationController::class);
+ Route::get('personalizations/delete/{id}', [PersonalizationController::class ,'destroy'])->name('personalizations.delete');

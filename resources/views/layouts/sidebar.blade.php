@@ -98,13 +98,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('permissions.index')}}" class="nav-link">
+                <a href="{{route('brands.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>الماركات</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('roles.index')}}" class="nav-link">
+                <a href="{{route('personalizations.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>التخصيص</p>
                 </a>

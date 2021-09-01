@@ -5,16 +5,16 @@
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active">Products</li>
+    <li class="breadcrumb-item active">brands</li>
 </ol>
 @endsection
 
 @section('content')
-
+ @include('shared.msg')
   <div class="card">
- 
+
               <div class="card-header">
-                 <a type="button" class="btn btn-primary" href="{{ route('products.create') }}">إضافة <i class="fa fa-plus"></i> </a>
+                 <a type="button" class="btn btn-primary" href="{{ route('personalizations.create') }}">إضافة <i class="fa fa-plus"></i> </a>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive">
@@ -22,27 +22,25 @@
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>المنتج </th>
-                    <th>التصنيف</th>
+                    <th>إسم الماركة</th>
                     <th>الحالة </th>
                     <th>الإجراءات</th>
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach ($products as $product)
+                    @foreach ($personalizations as $personalization)
                      <tr>
-                      <td>{{$product->id}}</td>
-                      <td>{{$product->name}}</td>
-                      <td>{{$product->category->name}}</td>
+                      <td>{{$personalization->id}}</td>
+                      <td>{{$personalization->name}}</td>
                       <td>
-                          @if($product->status=='active')
+                          @if($personalization->status=='active')
                               <span class="btn btn-success btn-sm">مفعل</span>
-                          @elseif($product->status=='draft')
+                          @elseif($personalization->status=='draft')
                               <span class="btn btn-danger btn-sm">غير مفعل</span>
                           @endif
                         </td>
                         <td>   
-                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
+                            <a href="{{ route('personalizations.edit', $personalization->id) }}" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
                             <a href="" onclick='return confirm("Are you sure dude?")' class="btn btn-danger btn-sm"><i class='fa fa-trash'></i></a>
                       </td>
                     </tr> 
@@ -51,8 +49,7 @@
                   <tfoot>
                   <tr>
                     <th>#</th>
-                    <th>المنتج </th>
-                    <th>التصنيف</th>
+                    <th>إسم الماركة</th>
                     <th>الحالة </th>
                     <th>الإجراءات</th>
                   </tr>

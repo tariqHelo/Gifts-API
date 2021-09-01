@@ -1,13 +1,39 @@
 
     <div class="card-body">
+                    <div class="row">
+                      <div class="col-4">
+                          <div class="form-group">
+                              <label for="country_id">الدولة</label>
+                               <input type="string" class="form-control @error('name') is-invalid @enderror" name="name"  placeholder="الإسم" value="{{ old('name' , $product->name) }}">
+                          </div>
+                      </div>
+                      <div class="col-4">
+                          <div class="form-group">
+                              <label for="country_id">الدولة</label>
+                               <input type="string" class="form-control @error('name') is-invalid @enderror" name="name"  placeholder="الإسم" value="{{ old('name' , $product->name) }}">
+                          </div>
+                      </div>
+                      <div class="col-4">
+                          <div class="form-group">
+                              <label for="country_id">الدولة</label>
+                               <input type="string" class="form-control @error('name') is-invalid @enderror" name="name"  placeholder="الإسم" value="{{ old('name' , $product->name) }}">
+                          </div>
+                      </div>
+                  </div>
                  <div class="form-group">
-                    <label>إسم التصنيف </label>
-                    <input type="string" class="form-control @error('name') is-invalid @enderror" name="name"  placeholder="الإسم" value="{{ old('name' , $category->name) }}">
-                     @error('beneficiarie_id')
+                    <label>إسم المنتج </label>
+                    <input type="string" class="form-control @error('name') is-invalid @enderror" name="name"  placeholder="الإسم" value="{{ old('name' , $product->name) }}">
+                     @error('name')
                         <p class="text-danger">{{ $message }}</p>
                       @enderror
                   </div>
                   <div class="form-group">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                      <label class="custom-control-label" for="customSwitch1">Toggle this custom switch element</label>
+                    </div>
+                  </div>
+                  {{-- <div class="form-group">
                     <label>الترتيب </label>
                     <input type="string" class="form-control @error('sequence') is-invalid @enderror" name="sequence"  placeholder=" الترتيب" value="{{ old('sequence' , $category->sequence) }}">
                      @error('sequence')
@@ -55,7 +81,7 @@
                         @error('status')
                         <p class="text-danger">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
       </div>
         <!-- /.card-body -->
 

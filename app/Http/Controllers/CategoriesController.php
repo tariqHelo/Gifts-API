@@ -130,6 +130,6 @@ class CategoriesController extends Controller
         $category->delete();
         // \Storage::disk('uploads')->delete($category->file);
         \Session::flash("msg", "w:تم حذف التصنيف ($category->name) بنجاح");
-        return redirect()->route('categories.index');//
+        return redirect()->route('categories.index');
     }
 }
