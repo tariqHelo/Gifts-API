@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PersonalizationController;
 use App\Http\Controllers\BrandsController;
 
+use App\Http\Controllers\ProductDetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,5 @@ Route::resource('users', UsersController::class);
 
  Route::resource('/personalizations', PersonalizationController::class);
  Route::get('personalizations/delete/{id}', [PersonalizationController::class ,'destroy'])->name('personalizations.delete');
+
+ Route::resource('/product_details', ProductDetailsController::class);

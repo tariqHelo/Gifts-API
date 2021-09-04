@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>الجمعية الخيرية بمحافظة صبيا </title>
+  <title>Gifts </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -134,7 +134,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2021 <a href="#">الجمعية الخيرية بمحافظة صبيا </a>.</strong>
+    <strong>Copyright &copy; 2021 <a href="#">Gifts </a>.</strong>
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.0-rc.1
     </div>
@@ -178,7 +178,99 @@
 
     @yield('script')
 
+    @stack('js')
+
+    <script>
+      $(function(){
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+			$("body").on("click" , ".add-new-row" , function(){
+				console.log(index);
+				var index = parseInt($(this).attr("data-index")) + 1;
+				$(this).attr("data-index" , index);
+				$(".mt-repeater-item").append(`
+		       <div class="row">
+                                 <div class="col-md-1">
+                          <label class="control-label"> الإسم</label>
+                          <input  name="data[${index}][name]"  class="form-control" type="string">
+                      </div>
+                      <div class="col-md-1">
+                          <label class="control-label"> الرقم </label>
+                          <input  name="data[${index}][number]"  class="form-control" type="string">
+                      </div>
+                      <div class="col-md-1">
+                          <label class="control-label"> النوع</label>
+                          <input  name="data[${index}][type]"  class="form-control" type="string">
+                      </div>
+                      <div class="col-md-1">
+                          <label class="control-label"> باركود</label>
+                          <input  name="data[${index}][barcode]" class="form-control" type="string">
+                      </div>
+                      <div class="col-md-1">
+                          <label class="control-label">الكمية</label>
+                          <input  name="data[${index}][qty]"  class="form-control" type="string">
+                      </div>
+                      <div class="col-md-1">
+                        <label class="control-label">التكلفة <span class="oldprename" style="color: #ccc"></span></label>
+                        <select name="data[${index}][price]"  class="form-control input-lg selectsize prevname">
+                          <option value="">نص حر</option>
+                          <option value="name"> الإسم</option>
+                          <option value="numberId"> رقم الهوية</option>
+                          <option value="email">  الإيميل</option>
+                          <option value="mobile"> رقم الجوال</option>
+                          <option value="class"> الصف </option>
+                          <option value="school">  المدرسة</option>
+
+                        </select>
+                      </div>
+                      <div class="col-md-1">
+                          <label class="control-label"> الشراء</label>
+                          <input  name="data[${index}][purchasing_price]"  class="form-control" type="string">
+                      </div>
+                      <div class="col-md-1">
+                          <label class="control-label">الشراء2</label>
+                          <input  name="data[${index}][purchasing_price2]"  class="form-control" type="string">
+                      </div>
+                      <div class="col-md-1">
+                          <label class="control-label">صورة</label>
+                          <input  name="data[${index}][image]"  class="form-control" type="string">
+                      </div>
+                      <div class="col-md-1">
+                        <label class="control-label">التخصيص <span class="oldprename" style="color: #ccc"></span></label>
+                        <select name="data[${index}][personalization]" class="form-control input-lg selectsize prevname">
+                          <option value="">نص حر</option>
+                          <option value="name" > الإسم</option>
+                          <option value="numberId"> رقم الهوية</option>
+
+                        </select>
+                      </div>
+                      <div class="col-md-1">
+                        <label class="control-label">الماركة <span class="oldprename" style="color: #ccc"></span></label>
+                        <select name="data[${index}][brand]" class="form-control input-lg selectsize prevname">
+                          <option value="">أجنبي</option>
+                          <option value="name"> دولي</option>
+                          <option value="numberId"> رقم</option>
+
+                        </select>
+                      </div>
+                      <div class="col-md-1" style="margin: 30px 0">
+                          <a href="javascript:;" data-repeater-delete class="delete-row btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+                            <i class="fa fa-trash"></i>
+                          </a>
+                      </div>
+                  </div>
+				`);
+			});
+			$("body").on("click" , ".delete-row" , function(){
+				$(this).parents(".row").remove();
+			});
+		});
+    </script>
 <script>
+  	
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2({
@@ -195,9 +287,6 @@
       "autoWidth": false,
     });
   });
-</script>
-<script>
-
 </script>
 </body>
 </html>
