@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('category_id')->constrained('categories')->on('id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('details_id')->nullable()->constrained('product_details')->on('id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->json('details')->nullable();
             $table->enum('status' , ['active', 'draft'])->default('draft');
             $table->longText('description');
             $table->timestamps();

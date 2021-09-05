@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="form-group">
       <label for="exampleInputEmail1">الإسم</label>
-      <input type="string" name="name" class="form-control"  placeholder="Enter Name">
+      <input type="string" name="name" class="form-control"  placeholder="Enter Name" value="{{old('name' , $product->name)}}">
     </div>
     <div class="form-group">
         <label>التصنيف</label>
@@ -16,13 +16,13 @@
     <div class="form-group">
       <label for="status">الحالة</label>
           <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status-active" value="active" @if(old('status') == 'active') checked @endif>
+              <input class="form-check-input" type="radio" name="status" id="status-active" value="active" @if(old('status' ,  $product->status) == 'active') checked @endif>
               <label class="form-check-label" for="status-active">
                   Active
               </label>
           </div>
           <div class="form-check">
-              <input class="form-check-input" type="radio" name="status" id="status-draft" value="draft" @if(old('status') == 'draft') checked @endif>
+              <input class="form-check-input" type="radio" name="status" id="status-draft" value="draft" @if(old('status' , $product->status) == 'draft') checked @endif>
               <label class="form-check-label" for="status-draft">
                   Draft
               </label>
@@ -30,7 +30,7 @@
     </div>
      <div class="form-group">
       <label>ملاحظات</label>
-      <textarea class="form-control" name="desc" rows="2" placeholder="Enter ..."></textarea>
+      <textarea class="form-control" name="desc" rows="2" placeholder="Enter ...">{{$product->description}}</textarea>
     </div>
      <div class="form-group">
         <table class="table table-striped table-bordered table-hover table-responsive">
@@ -39,76 +39,151 @@
             <div class="form-body">
               <div style="border: 1px #cccccc solid;padding: 5px;border-radius: 4px">
                 <div class="mt-repeater-item">
-                    <div class="row">
-                      <div class="col-md-1">
-                          <label class="control-label"> الإسم</label>
-                          <input  name="data[0][name]"  class="form-control" type="string">
-                      </div>
-                      <div class="col-md-1">
-                          <label class="control-label"> الرقم </label>
-                          <input  name="data[0][number]"  class="form-control" type="string">
-                      </div>
-                      <div class="col-md-1">
-                          <label class="control-label"> النوع</label>
-                          <input  name="data[0][type]"  class="form-control" type="string">
-                      </div>
-                      <div class="col-md-1">
-                          <label class="control-label"> باركود</label>
-                          <input  name="data[0][barcode]" class="form-control" type="string">
-                      </div>
-                      <div class="col-md-1">
-                          <label class="control-label">الكمية</label>
-                          <input  name="data[0][qty]"  class="form-control" type="string">
-                      </div>
-                      <div class="col-md-1">
-                        <label class="control-label">التكلفة <span class="oldprename" style="color: #ccc"></span></label>
-                        <select name="data[0][price]"  class="form-control input-lg selectsize prevname">
-                          <option value="">نص حر</option>
-                          <option value="name"> الإسم</option>
-                          <option value="numberId"> رقم الهوية</option>
-                          <option value="email">  الإيميل</option>
-                          <option value="mobile"> رقم الجوال</option>
-                          <option value="class"> الصف </option>
-                          <option value="school">  المدرسة</option>
+                  @if(isset($items))
+                      @foreach ($items as $i => $obj)
+                        <div class="row">
+                          <div class="col-md-1">
+                              <label class="control-label"> الإسم</label>
+                              <input  name="data[{{$i}}][name]" value="{{ $obj['name'] }}"  class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label"> الرقم </label>
+                              <input  name="data[{{$i}}][number]" value="{{ $obj['number'] }}"  class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label"> النوع</label>
+                              <input  name="data[{{$i}}][type]" value="{{ $obj['type'] }}"   class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label"> باركود</label>
+                              <input  name="data[{{$i}}][barcode]" value="{{ $obj['barcode'] }}"  class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label">الكمية</label>
+                              <input  name="data[{{$i}}][qty]" value="{{ $obj['qty'] }}"   class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                            <label class="control-label">التكلفة <span class="oldprename" style="color: #ccc"></span></label>
+                            <select name="data[{{$i}}][price]" value="{{ $obj['price'] }}"  class="form-control input-lg selectsize prevname">
+                              <option value="">نص حر</option>
+                              <option value="name"> الإسم</option>
+                              <option value="numberId"> رقم الهوية</option>
+                              <option value="email">  الإيميل</option>
+                              <option value="mobile"> رقم الجوال</option>
+                              <option value="class"> الصف </option>
+                              <option value="school">  المدرسة</option>
 
-                        </select>
-                      </div>
-                      <div class="col-md-1">
-                          <label class="control-label"> الشراء</label>
-                          <input  name="data[0][purchasing_price]"  class="form-control" type="string">
-                      </div>
-                      <div class="col-md-1">
-                          <label class="control-label">الشراء2</label>
-                          <input  name="data[0][purchasing_price2]"  class="form-control" type="string">
-                      </div>
-                      <div class="col-md-1">
-                          <label class="control-label">صورة</label>
-                          <input  name="data[0][image]"  class="form-control" type="string">
-                      </div>
-                      <div class="col-md-1">
-                        <label class="control-label">التخصيص <span class="oldprename" style="color: #ccc"></span></label>
-                        <select name="data[0][personalization]" class="form-control input-lg selectsize prevname">
-                          <option value="">نص حر</option>
-                          <option value="name" > الإسم</option>
-                          <option value="numberId"> رقم الهوية</option>
+                            </select>
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label"> الشراء</label>
+                              <input  name="data[{{$i}}][purchasing_price]" value="{{ $obj['purchasing_price'] }}"  class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label">الشراء2</label>
+                              <input  name="data[{{$i}}][purchasing_price2]" value="{{ $obj['purchasing_price2'] }}"  class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label">صورة</label>
+                              <input  name="data[{{$i}}][image]"  value="{{ $obj['image'] }}" class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                            <label class="control-label">التخصيص <span class="oldprename" style="color: #ccc"></span></label>
+                            <select name="data[{{$i}}][personalization]" value="{{ $obj['personalization'] }}" class="form-control input-lg selectsize prevname">
+                              <option value="">نص حر</option>
+                              <option value="name" > الإسم</option>
+                              <option value="numberId"> رقم الهوية</option>
 
-                        </select>
-                      </div>
-                      <div class="col-md-1">
-                        <label class="control-label">الماركة <span class="oldprename" style="color: #ccc"></span></label>
-                        <select name="data[0][brand]" class="form-control input-lg selectsize prevname">
-                          <option value="">أجنبي</option>
-                          <option value="name"> دولي</option>
-                          <option value="numberId"> رقم</option>
+                            </select>
+                          </div>
+                          <div class="col-md-1">
+                            <label class="control-label">الماركة <span class="oldprename" style="color: #ccc"></span></label>
+                            <select name="data[{{$i}}][brand]" value="{{ $obj['brand'] }}" class="form-control input-lg selectsize prevname">
+                              <option value="">أجنبي</option>
+                              <option value="name"> دولي</option>
+                              <option value="numberId"> رقم</option>
 
-                        </select>
-                      </div>
-                      <div class="col-md-1" style="margin: 30px 0">
-                          <a href="javascript:;" data-repeater-delete class="delete-row btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
-                            <i class="fa fa-trash"></i>
-                          </a>
-                      </div>
-                    </div>
+                            </select>
+                          </div>
+                          <div class="col-md-1" style="margin: 30px 0">
+                              <a href="javascript:;" data-repeater-delete class="delete-row btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+                                <i class="fa fa-trash"></i>
+                              </a>
+                          </div>
+                        </div>
+                     @endforeach
+                  @else
+                  <div class="row">
+                          <div class="col-md-1">
+                              <label class="control-label"> الإسم</label>
+                              <input  name="data[0][name]" class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label"> الرقم </label>
+                              <input  name="data[0][number]"   class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label"> النوع</label>
+                              <input  name="data[0][type]"    class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label"> باركود</label>
+                              <input  name="data[0][barcode]"  class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label">الكمية</label>
+                              <input  name="data[0][qty]"    class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                            <label class="control-label">التكلفة <span class="oldprename" style="color: #ccc"></span></label>
+                            <select name="data[0][price]"   class="form-control input-lg selectsize prevname">
+                              <option value="">نص حر</option>
+                              <option value="name"> الإسم</option>
+                              <option value="numberId"> رقم الهوية</option>
+                              <option value="email">  الإيميل</option>
+                              <option value="mobile"> رقم الجوال</option>
+                              <option value="class"> الصف </option>
+                              <option value="school">  المدرسة</option>
+
+                            </select>
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label"> الشراء</label>
+                              <input  name="data[0][purchasing_price]"   class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label">الشراء2</label>
+                              <input  name="data[0][purchasing_price2]"   class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                              <label class="control-label">صورة</label>
+                              <input  name="data[0][image]"   class="form-control" type="string">
+                          </div>
+                          <div class="col-md-1">
+                            <label class="control-label">التخصيص <span class="oldprename" style="color: #ccc"></span></label>
+                            <select name="data[0][personalization]"  class="form-control input-lg selectsize prevname">
+                              <option value="">نص حر</option>
+                              <option value="name" > الإسم</option>
+                              <option value="numberId"> رقم الهوية</option>
+
+                            </select>
+                          </div>
+                          <div class="col-md-1">
+                            <label class="control-label">الماركة <span class="oldprename" style="color: #ccc"></span></label>
+                            <select name="data[0][brand]" class="form-control input-lg selectsize prevname">
+                              <option value="">أجنبي</option>
+                              <option value="name"> دولي</option>
+                              <option value="numberId"> رقم</option>
+
+                            </select>
+                          </div>
+                          <div class="col-md-1" style="margin: 30px 0">
+                              <a href="javascript:;" data-repeater-delete class="delete-row btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+                                <i class="fa fa-trash"></i>
+                              </a>
+                          </div>
+                        </div>
+                  @endif
                 </div>
               </div>
 
@@ -177,7 +252,7 @@
                     <div class="row">
                       <div class="col-md-1">
                           <label class="control-label"> الإسم</label>
-                          <input  name="data[0][font_color]" class="form-control" type="string">
+                          <input  name="data[{{$i}}][font_color]" class="form-control" type="string">
                       </div>
                       <div class="col-md-1">
                           <label class="control-label"> الرقم </label>

@@ -10,17 +10,20 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'category_id','details_id', 'status', 'description',
+        'name', 'category_id','details', 'status', 'description',
     ];
 
     
+    protected $casts = [
+        'details' => 'array'
+    ];
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id')
             ->withDefault();
     }
-    public function detalis()
-    {
-    return $this->hasMany(ProductDetails::class);
-    }
+    // public function detalis()
+    // {
+    // return $this->hasMany(ProductDetails::class);
+    // }
 }

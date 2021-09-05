@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Http\Request;
 use App\Imports\ProductDetailsImport;
+use Illuminate\Support\Facades\DB;
 
 class ProductDetailsController extends Controller
 {
@@ -40,9 +41,7 @@ class ProductDetailsController extends Controller
      */
     public function store(Request $request)
     {     
-
-       
-         try {
+       try {
             Excel::import(new ProductDetailsImport, request()->file('file'));
            \Session::flash("msg","s: تم إضافة الملف بنجاح ");
        } catch (\Throwable $th) {
@@ -50,6 +49,20 @@ class ProductDetailsController extends Controller
        }
       return redirect()->back();
     }
+
+    public function image(Request $request)
+    {
+
+     $imgs =  $request->filenames;
+     //dd($imgs);
+     foreach($imgs as $key => $value){
+        $pure = strtolower(str_replace(".png", "",$value));
+        $products =  ProductDetails::where('name', '=', $pure)->first();
+        $products->update(['image' => $pure]);
+     }
+      return redirect()->back();
+    }
+
 
     /**
      * Display the specified resource.

@@ -26,10 +26,10 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{route('categories.update' , $category->id)}}" method="POST" enctype="multipart/form-data">
+              <form role="form" action="{{route('products.update' , $product->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
-                @include('admin.categories._form',[
+                @include('admin.products._form',[
                   'button' => "تعديل"
                 ])
               </form>

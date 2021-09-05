@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-        @include('shared.msg')
+  @include('shared.msg')
 
           <div class="card">
             <form action="{{route('product_details.store')}}" method="POST" enctype="multipart/form-data" class="card card-danger">
@@ -27,27 +27,25 @@
                   </div>
                 </div>
                 <!-- /.card-body -->
-               <div class="card-body">
-                  {{-- <button type="submit" class="btn btn-primary">إضافة <i class="fas fa-upload"></i> </button> --}}
-                <div class="col-lg-6">
-                    <div class="btn-group w-100">
-                      <button type="submit" class="btn btn-primary col start">
-                        <i class="fas fa-upload"></i>
-                        <span>إضافة إكسل</span>
-                      </button>
-                      <a></a>
-                      <a href="{{route('products.index')}}" class="btn btn-success col fileinput-button">
-                        <i class="fas fa-plus"></i>
-                        <span>تحميل صور</span>
-                      </a>
-                      <button type="reset" class="btn btn-warning col fileinput-button">
-                        <i class="fas fa-times-copy"></i>
-                        <span>عدة منتجات</span>
-                      </button>
-                    </div>
-                  </div>
+                <div class="card-body">
+                      <div class="btn-group w-100">
+                        <button type="submit" class="btn btn-primary col start">
+                          <i class="fas fa-upload"></i>
+                          <span>إضافة إكسل</span>
+                        </button>
+                        <a></a>
+                        <button href="" data-toggle="modal" data-target="#exampleModal" class="btn btn-success col fileinput-button">
+                          <i class="fas fa-plus"></i>
+                          <span>تحميل صور</span>
+                        </button>
+                        <button type="reset" class="btn btn-warning col fileinput-button">
+                          <i class="fas fa-times-copy"></i>
+                          <span>عدة منتجات</span>
+                        </button>
+                      </div>
                 </div>
             </form>
+
             <div class="card-body">
               <table id="example1" class="table-responsive table table-bordered  table-striped">
                 <thead>
@@ -105,14 +103,37 @@
                 </tfoot>
               </table>
             </div>
+            
             <!-- /.card-body -->
           </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">إضافة صور منتجات</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="{{route('image')}}"  method="post">
+                          {{csrf_field()}}
+                          {{-- <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                          </div> --}}
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <input type="file" name="filenames[]" class="form-control" multiple id="recipient-name">
+                          </div>
+                          <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Send message</button>
+                      </div>
+                        </form>
+                      </div>
+                      
+                    </div>
+                  </div>
+          </div>
 @endsection

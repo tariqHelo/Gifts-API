@@ -10,6 +10,7 @@
 @endsection
 
 @section('content')
+  @include('shared.msg')
 
   <div class="card">
  

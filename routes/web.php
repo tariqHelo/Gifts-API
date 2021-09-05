@@ -33,6 +33,7 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
+Route::post('/image', [ProductDetailsController::class , 'image'])->name('image');
 
 /* Start Admin Route */
 // Permissions

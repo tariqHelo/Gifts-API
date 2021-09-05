@@ -23,12 +23,9 @@ class CreateProductDetailsTable extends Migration
             $table->string('price');
             $table->string('purchasing_price');
             $table->string('purchasing_price2');
-           // $table->string('image');
+            $table->string('image');
             $table->string('personalization');
             $table->string('brand');
-            // $table->enum('personalization', ['active', 'draft']);
-            // $table->enum('brand', ['active', 'draft']);
-
             $table->timestamps();
         });
     }

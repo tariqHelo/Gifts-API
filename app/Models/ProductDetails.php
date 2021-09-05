@@ -18,7 +18,8 @@ class ProductDetails extends Model
         'purchasing_price',
         'purchasing_price2',
         'personalization',
-        'brand'
+        'brand',
+        'image'
    ];
     
 }
