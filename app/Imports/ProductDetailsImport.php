@@ -16,7 +16,7 @@ class ProductDetailsImport implements ToCollection
     */
     public function collection(Collection $rows)
     { 
-         //DB::table('beneficiaries')->truncate();
+         DB::table('product_details')->truncate();
         foreach ($rows as $row) 
         {  
             //dd($row[0]); 
@@ -38,22 +38,3 @@ class ProductDetailsImport implements ToCollection
         }
     }
 }
-
-
-
-//  DB::table('beneficiaries')->truncate();
-//  foreach ($rows as $row)
-//  {
-//  if($row[1] == null):
-//  //dd(20);
-//  continue;
-//  endif;
-//  Beneficiaries::create([
-//  'file_no' => $row[0],
-//  'name' => $row[1],
-//  'calss' => $row[2],
-//  'id_number' => $row[3],
-//  'phone' => $row[4],
-//  'area' => $row[5],
-//  ]);
-//  }

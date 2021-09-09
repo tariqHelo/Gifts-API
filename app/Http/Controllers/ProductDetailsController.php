@@ -30,7 +30,10 @@ class ProductDetailsController extends Controller
      */
     public function create()
     {
-        //
+       $details = ProductDetails::all();
+       return view('admin.product_details.create',[
+        'details' => new details()
+       ]);
     }
 
     /**
@@ -53,15 +56,52 @@ class ProductDetailsController extends Controller
     public function image(Request $request)
     {
 
-     $imgs =  $request->filenames;
-     //dd($imgs);
-     foreach($imgs as $key => $value){
-        $pure = strtolower(str_replace(".png", "",$value));
-        $products =  ProductDetails::where('name', '=', $pure)->first();
-        $products->update(['image' => $pure]);
-     }
+     $imgs = $request->filenames;
+    // dd($imgs['0']->getClientOriginalName());
+        if($request->hasFile('filenames')){
+            foreach($imgs as $key => $value){
+                $img = $value->getClientOriginalName();
+                $pure = strtolower(str_replace(".png", "",$img));
+                $products =  ProductDetails::where('name', '=', $pure)->first();
+                if($products){
+                    $image_path = $value->store('/', [
+                    'public' => 'uploads',
+                    ]);
+                    $products->update([
+                        'image'=>$image_path
+                    ]);
+                }
+           } 
+        }
+      \Session::flash("msg", "s:تم إضافة صور المنتجات  بنجاح");
       return redirect()->back();
+      $input=$request->all();
+    // $images=array();
+    // if($files=$request->file('images')){
+    //     foreach($files as $file){
+    //         $name=$file->getClientOriginalName();
+    //         $file->move('image',$name);
+    //         $images[]=$name;
+    //     }
+    // }
+    // /*Insert your data*/
+
+    // Detail::insert( [
+    //     'images'=>  implode("|",$images),
+    //     'description' =>$input['description'],
+    //     //you can put other insertion here
+    // ]);
     }
+    public function barcode(Request $request)
+    { 
+       if ($request->has("val")) :
+            $barcods = DB::table("product_details")->where("barcode", $request->val)->get();
+        else :
+            $barcods = [];
+        endif;
+
+     return response()->json(['barcods' => $barcods]);
+   }
 
 
     /**
@@ -83,7 +123,11 @@ class ProductDetailsController extends Controller
      */
     public function edit($id)
     {
-        //
+     $details = ProductDetails::find($id);
+
+     return view('admin.product_details.edit',[
+        'details' => $details
+     ]);
     }
 
     /**

@@ -189,14 +189,20 @@
 
               </tbody>
             </table>
+            @if(isset($items))
+            <button type="button" class="btn btn-primary add-new-row" data-index="{{ count($items) - 1 }}"><i class="fa fa-plus"></i></button>
+            @else
             <button type="button" class="btn btn-primary add-new-row" data-index="0"><i class="fa fa-plus"></i> </button>
+            @endif
           </div>
     </div>
          
   </div>
   <!-- /.card-body -->
   <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">{{$button}}</button>
+        <a href="{{route('products.index')}}" class="btn btn-danger" type="button"> إلغاء</a>
+
   </div>
 <!-- /.card -->
   

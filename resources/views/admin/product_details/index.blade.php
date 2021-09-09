@@ -34,11 +34,11 @@
                           <span>إضافة إكسل</span>
                         </button>
                         <a></a>
-                        <button href="" data-toggle="modal" data-target="#exampleModal" class="btn btn-success col fileinput-button">
+                        <button  data-toggle="modal" data-target="#exampleModal" class="btn btn-success col fileinput-button">
                           <i class="fas fa-plus"></i>
                           <span>تحميل صور</span>
                         </button>
-                        <button type="reset" class="btn btn-warning col fileinput-button">
+                        <button data-toggle="modal" data-target="#exampleModal1" class="btn btn-warning col fileinput-button">
                           <i class="fas fa-times-copy"></i>
                           <span>عدة منتجات</span>
                         </button>
@@ -116,7 +116,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="{{route('image')}}"  method="post">
+                        <form action="{{route('image')}}"  method="post" enctype="multipart/form-data">
                           {{csrf_field()}}
                           {{-- <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Recipient:</label>
@@ -136,4 +136,108 @@
                     </div>
                   </div>
           </div>
+          <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">إضافة المنتجات </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action=""  method="post">
+                          @csrf
+                          {{csrf_field()}}
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <input type="text" onmouseover="this.focus();" name="barcode" id="barcode" class="form-control" placeholder="Type Product Name...">
+                          </div>
+                           <div class="card-body">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th style="width: 40px">barcode</th>
+                                  <th style="width: 40px">name</th>
+                                </tr>
+                              
+                              </thead>
+                              <tbody id="test">
+                                <tr>
+                                </tr>
+                                
+                                {{-- <tr>
+                                  <td>2.</td>
+                                  <td>Clean database</td>
+                                  <td>
+                                    <div class="progress progress-xs">
+                                      <div class="progress-bar bg-warning" style="width: 70%"></div>
+                                    </div>
+                                  </td>
+                                  <td><span class="badge bg-warning">70%</span></td>
+                                </tr>
+                                <tr>
+                                  <td>3.</td>
+                                  <td>Cron job running</td>
+                                  <td>
+                                    <div class="progress progress-xs progress-striped active">
+                                      <div class="progress-bar bg-primary" style="width: 30%"></div>
+                                    </div>
+                                  </td>
+                                  <td><span class="badge bg-primary">30%</span></td>
+                                </tr>
+                                <tr>
+                                  <td>4.</td>
+                                  <td>Fix and squish bugs</td>
+                                  <td>
+                                    <div class="progress progress-xs progress-striped active">
+                                      <div class="progress-bar bg-success" style="width: 90%"></div>
+                                    </div>
+                                  </td>
+                                  <td><span class="badge bg-success">90%</span></td>
+                                </tr> --}}
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">update</button>
+                      </div>
+                        </form>
+                      </div>
+                      
+                    </div>
+                  </div>
+          </div>
+@section('script')
+<script type="text/javascript">
+    $('#barcode').on('keyup', function () {
+      	let val = $(this).val();
+        $.ajax({
+             url: '{{route('barcode')}}',
+                type: 'POST',
+		          	data:{val:val,_token:'{{ csrf_token() }}'},
+                dataType:"JSON",
+                success:function(data){
+                  var rows='';
+                 console.log(data) 
+                 console.log(rows)
+                 data.barcods.forEach(barcod => {
+                    rows += 
+                       '<tr>'+
+                          '<td>'+barcod.barcode+'</td>'+
+                          '<td>'+barcod.name+'</td>'+
+                       '</tr>'
+                       	
+                  });
+                  $("#test").append(rows);
+                }
+        });
+    });
+    $("test").on("click" , ".delete-row" , function(){
+				$(this).parents(".row").remove();
+			});
+</script>  
+@endsection
+        
 @endsection

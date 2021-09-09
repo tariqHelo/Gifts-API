@@ -22,9 +22,9 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{route('exchange.store')}}" method="POST">
+              <form role="form" action="{{route('product_details.store')}}" method="POST">
                 @csrf
-                @include('exchange._form',[
+                @include('admin.product_details._form',[
                   'button' => "إضافة"
                 ])
               </form>

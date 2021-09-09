@@ -2,18 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\PermissionsController;
-use App\Http\Controllers\Admin\RolesController;
-use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\{
+    PermissionsController,
+    RolesController,
+    UsersController
+};
+use App\Http\Controllers\{
+    CategoriesController,
+    ProductController,
+    PersonalizationController,
+    BrandsController,
+    ProductDetailsController
+};
 
-
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\ProductController;
-
-use App\Http\Controllers\PersonalizationController;
-use App\Http\Controllers\BrandsController;
-
-use App\Http\Controllers\ProductDetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::post('/image', [ProductDetailsController::class , 'image'])->name('image');
+Route::post('/barcode', [ProductDetailsController::class , 'barcode'])->name('barcode');
 
 /* Start Admin Route */
 // Permissions
@@ -56,3 +58,46 @@ Route::resource('users', UsersController::class);
  Route::get('personalizations/delete/{id}', [PersonalizationController::class ,'destroy'])->name('personalizations.delete');
 
  Route::resource('/product_details', ProductDetailsController::class);
+// $(document).on("scanButtonDown", "document", function(e) {
+// // get scanned content
+// var scannedProductId = this.getScannedContent();
+
+// // get product
+// var product = getProductById(scannedProductId);
+
+// // add productname to list
+// $("#product_list").append("<li>" + product.name + "</li>");
+// });
+
+// var barcode = [];
+// var interval;
+// document.addEventListener('keydown', function(evt) {
+// if (interval)
+// clearInterval(interval);
+// if (evt.code == 'Enter') {
+// if (barcode)
+// handleBarcode(barcode);
+// barcode = [];
+// return;
+// }
+// if (evt.key != 'Shift')
+// barcode += evt.key;
+// interval = setInterval(() => barcode = '', 20);
+// });
+
+// function handleBarcode(scanned_barcode) {
+// document.querySelector('#last-barcode').innerHTML = scanned_barcode;
+// }
+
+
+// $(document).on("barcode", "document", function(e) {
+// // get scanned content
+// var scannedProductId = this.getScannedContent();
+
+// console.log(scannedProductId);
+// // get barcode
+// var product = getBarcodeById(scannedProductId);
+
+// // add barcodename to list
+// $("#product_list").append("<li>" + product.name + "</li>");
+// });

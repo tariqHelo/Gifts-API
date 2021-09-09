@@ -22,10 +22,10 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{route('beneficiaries.update' , $beneficiarie->id)}}" method="POST">
+              <form role="form" action="{{route('product_details.update' , $details->id)}}" method="POST">
                 @csrf
                 @method('PATCH')
-                @include('beneficiaries._form',[
+                @include('admin.product_details._form',[
                   'button' => "تعديل"
                 ])
               </form>

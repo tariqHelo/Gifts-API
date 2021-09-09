@@ -89,7 +89,7 @@ class ProductController extends Controller
         // ProductDetails::insert($purchases);
         // Product::insert($product);
         // $category = Category::create($request->all());
-        // \Session::flash("msg", "s:تم إضافة التصنيف ($category->name) بنجاح");
+         \Session::flash("msg", "s:تم إضافة المنتج ($product->name) بنجاح");
          return redirect()->route('products.index');
     }
 
@@ -131,9 +131,20 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
-    {
-        //
+    public function update(Request $request, $id)
+    {  
+      $product = Product::find($id);
+       $dataJson = json_encode($request->data);
+       // dd($dataJson);
+        $product->update([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'status' => $request->status,
+            'description' => $request->desc,
+            'details' => $dataJson,
+        ]);
+        \Session::flash("msg", "s:تم تعديل المنتج ($product->name) بنجاح");
+      return redirect()->route('products.index'); 
     }
 
     /**
@@ -147,35 +158,3 @@ class ProductController extends Controller
         //
     }
 }
-//   $name = $request->name;
-//   $number = $request->name;
-//   $type = $request->type;
-//   $barcode = $request->barcode;
-//   $qty = $request->qty;
-//   $price = $request->type;
-//   $type = $request->name;
-//   $purchasing_price = $request->purchasing_price;
-//   $purchasing_price2= $request->purchasing_price2;
-//   $personalization = $request->personalization;
-//   $brand = $request->brand;
-//   $barcode = $request->barcode;
-
-//   for($i = 0 ; $i<$request->data ; $i++){
-//       $data = collect([
-//       'name' => $name[$i],
-//       'number' => $number[$i],
-//       'type' => $type[$i],
-//       'barcode' => $barcode[$i],
-//       'qty' => $qty[$i],
-//       'price' => $price[$i],
-//       'type' => $type[$i],
-//       'purchasing_price' => $purchasing_price[$i],
-//       'purchasing_price2' => $purchasing_price2[$i],
-//       'personalization' => $personalization[$i],
-//       'brand' => $brand[$i],
-//       'barcode' => $barcode[$i],
-//       ]);
-//       DB::table('product_details')->insert($data);
-//       }
-
-//       dd('done');

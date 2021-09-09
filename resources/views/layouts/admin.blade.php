@@ -193,7 +193,7 @@
 				$(this).attr("data-index" , index);
 				$(".mt-repeater-item").append(`
 		       <div class="row">
-                                 <div class="col-md-1">
+                      <div class="col-md-1">
                           <label class="control-label"> الإسم</label>
                           <input  name="data[${index}][name]"  class="form-control" type="string">
                       </div>
