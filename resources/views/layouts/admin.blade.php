@@ -134,9 +134,9 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2021 <a href="#">Gifts </a>.</strong>
+    <strong><a href="#"></a>.</strong>
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.0-rc.1
+      <b>Frame Dash</b> V1.0
     </div>
   </footer>
 

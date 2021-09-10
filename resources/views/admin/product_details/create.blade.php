@@ -18,11 +18,11 @@
             <!-- general form elements -->
             <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title-rtl">إضافة بيانات المستفيد</h3>
+                <h3 class="card-title-rtl">إضافة ملف الإكسل </h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{route('product_details.store')}}" method="POST">
+              <form role="form" action="{{route('product_details.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @include('admin.product_details._form',[
                   'button' => "إضافة"

@@ -1,33 +1,10 @@
 
   <div class="card-body">
-    <div class="form-group">
-      <label for="exampleInputEmail1">الإسم</label>
-      <input type="string" name="name" class="form-control"  placeholder="Enter Name" value="{{old('name' , $product->name)}}">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">الإسم</label>
-      <input type="string" name="name" class="form-control"  placeholder="Enter Name" value="{{old('name' , $product->name)}}">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">الإسم</label>
-      <input type="string" name="name" class="form-control"  placeholder="Enter Name" value="{{old('name' , $product->name)}}">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">الإسم</label>
-      <input type="string" name="name" class="form-control"  placeholder="Enter Name" value="{{old('name' , $product->name)}}">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">الإسم</label>
-      <input type="string" name="name" class="form-control"  placeholder="Enter Name" value="{{old('name' , $product->name)}}">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">الإسم</label>
-      <input type="string" name="name" class="form-control"  placeholder="Enter Name" value="{{old('name' , $product->name)}}">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">الإسم</label>
-      <input type="string" name="name" class="form-control"  placeholder="Enter Name" value="{{old('name' , $product->name)}}">
-    </div>
+          <div class="row">
+              <div class="col-sm-10">
+              <input type="file" name="file" class="form-control" id="inputEmail3" placeholder="Email" required>
+            </div>
+          </div> 
            
   </div>
   <!-- /.card-body -->

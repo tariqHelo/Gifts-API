@@ -16,7 +16,7 @@ class ProductDetailsImport implements ToCollection
     */
     public function collection(Collection $rows)
     { 
-         DB::table('product_details')->truncate();
+     // DB::table('product_details')->truncate();
         foreach ($rows as $row) 
         {  
             //dd($row[0]); 

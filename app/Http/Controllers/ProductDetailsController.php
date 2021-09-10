@@ -30,9 +30,7 @@ class ProductDetailsController extends Controller
      */
     public function create()
     {
-       $details = ProductDetails::all();
        return view('admin.product_details.create',[
-        'details' => new details()
        ]);
     }
 
@@ -50,7 +48,7 @@ class ProductDetailsController extends Controller
        } catch (\Throwable $th) {
            \Session::flash("msg","w: حدث خطأ اثناء عملية الادخال يرجى التأكد من صحة الملف");
        }
-      return redirect()->back();
+      return redirect()->route('product_details.index');
     }
 
     public function image(Request $request)
@@ -76,21 +74,6 @@ class ProductDetailsController extends Controller
       \Session::flash("msg", "s:تم إضافة صور المنتجات  بنجاح");
       return redirect()->back();
       $input=$request->all();
-    // $images=array();
-    // if($files=$request->file('images')){
-    //     foreach($files as $file){
-    //         $name=$file->getClientOriginalName();
-    //         $file->move('image',$name);
-    //         $images[]=$name;
-    //     }
-    // }
-    // /*Insert your data*/
-
-    // Detail::insert( [
-    //     'images'=>  implode("|",$images),
-    //     'description' =>$input['description'],
-    //     //you can put other insertion here
-    // ]);
     }
     public function barcode(Request $request)
     { 

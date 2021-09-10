@@ -1,39 +1,38 @@
 @extends('layouts.admin')
 
-@section('title', 'جميع قطع المنتجات')
+@section('title', '')
 
 
 @section('breadcrumb')
-<ol class="breadcrumb float-sm-right">
+{{-- <ol class="breadcrumb float-sm-right">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active">car</li>
-</ol>
+</ol> --}}
 @endsection
 
 @section('content')
   @include('shared.msg')
 
           <div class="card">
-            <form action="{{route('product_details.store')}}" method="POST" enctype="multipart/form-data" class="card card-danger">
+            <div  class="card card-danger">
               @csrf
                 <div class="card-header">
-                  <h3 class="card-title-rtl">تحميل ملف الإكسل</h3>
+                  <h3 class="card-title-rtl">جميع قطع المنتجات</h3>
                 </div>
-                <div class="card-body">
+                {{-- <div class="card-body">
                   <div class="row">
                      <div class="col-sm-10">
                       <input type="file" name="file" class="form-control" id="inputEmail3" placeholder="Email" required>
                     </div>
                   </div>
-                </div>
+                </div> --}}
                 <!-- /.card-body -->
                 <div class="card-body">
                       <div class="btn-group w-100">
-                        <button type="submit" class="btn btn-primary col start">
+                        <a href="{{route('product_details.create')}}" type="button" class="btn btn-primary col start">
                           <i class="fas fa-upload"></i>
                           <span>إضافة إكسل</span>
-                        </button>
-                        <a></a>
+                        </a>
                         <button  data-toggle="modal" data-target="#exampleModal" class="btn btn-success col fileinput-button">
                           <i class="fas fa-plus"></i>
                           <span>تحميل صور</span>
@@ -44,7 +43,7 @@
                         </button>
                       </div>
                 </div>
-            </form>
+            </div>
 
             <div class="card-body">
               <table id="example1" class="table-responsive table table-bordered  table-striped">
@@ -124,11 +123,11 @@
                           </div> --}}
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">Message:</label>
-                            <input type="file" name="filenames[]" class="form-control" multiple id="recipient-name">
+                            <input type="file" name="filenames[]" required class="form-control" multiple id="recipient-name">
                           </div>
                           <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                        <button type="submit" class="btn btn-primary">إضافة </button>
                       </div>
                         </form>
                       </div>
@@ -146,7 +145,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action=""  method="post">
+                        <form action="{{route('products.store')}}"  method="post">
                           @csrf
                           {{csrf_field()}}
                           <div class="form-group">
@@ -163,45 +162,13 @@
                               
                               </thead>
                               <tbody id="test">
-                                <tr>
-                                </tr>
                                 
-                                {{-- <tr>
-                                  <td>2.</td>
-                                  <td>Clean database</td>
-                                  <td>
-                                    <div class="progress progress-xs">
-                                      <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-warning">70%</span></td>
-                                </tr>
-                                <tr>
-                                  <td>3.</td>
-                                  <td>Cron job running</td>
-                                  <td>
-                                    <div class="progress progress-xs progress-striped active">
-                                      <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-primary">30%</span></td>
-                                </tr>
-                                <tr>
-                                  <td>4.</td>
-                                  <td>Fix and squish bugs</td>
-                                  <td>
-                                    <div class="progress progress-xs progress-striped active">
-                                      <div class="progress-bar bg-success" style="width: 90%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-success">90%</span></td>
-                                </tr> --}}
                               </tbody>
                             </table>
                           </div>
                           <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">update</button>
+                        <button type="submit" id="form" class="btn btn-primary">update</button>
                       </div>
                         </form>
                       </div>
@@ -211,7 +178,12 @@
           </div>
 @section('script')
 <script type="text/javascript">
-    $('#barcode').on('keyup', function () {
+(function() {
+      let arr = [];
+
+      // Fetching items
+    $('#barcode').on('keyup', function (e) {
+        e.preventDefault();
       	let val = $(this).val();
         $.ajax({
              url: '{{route('barcode')}}',
@@ -219,9 +191,11 @@
 		          	data:{val:val,_token:'{{ csrf_token() }}'},
                 dataType:"JSON",
                 success:function(data){
+                  if(data !== []){
+                    arr.push(data)
+                  }
                   var rows='';
                  console.log(data) 
-                 console.log(rows)
                  data.barcods.forEach(barcod => {
                     rows += 
                        '<tr>'+
@@ -231,12 +205,30 @@
                        	
                   });
                   $("#test").append(rows);
+                
                 }
         });
     });
-    $("test").on("click" , ".delete-row" , function(){
-				$(this).parents(".row").remove();
-			});
+    
+    document.getElementById('form').addEventListener('click' , function(e){
+       e.preventDefault();
+          $.ajax({
+              type: "POST",
+              url: "{{ route('products.store') }}",
+              dataType: "json",
+              data:{arr:arr,_token:'{{ csrf_token() }}'},
+              success: function(data){
+                    alert("Data Save: " + data);
+              },
+              error: function(data){
+                  alert("Error")
+              }
+          });
+    })
+
+
+})();  
+
 </script>  
 @endsection
         
