@@ -15,6 +15,7 @@
             @method('PATCH')
              @include('admin.permissions._form',[
                     'button' => 'تعديل'
+                     
                 ])
             </div>
         </form>

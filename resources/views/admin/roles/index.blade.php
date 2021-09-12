@@ -24,6 +24,9 @@
                           الصلاحيات
                         </th>
                         <th>
+                          الملاحظات
+                        </th>
+                        <th>
                             الإجراءات
                         </th>
                     </tr>
@@ -42,6 +45,9 @@
                                 @foreach($role->permissions as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
+                            </td>
+                             <td>
+                                {{ $role->note ?? '' }}
                             </td>
                             <td>
                                 {{-- @can('role_show')

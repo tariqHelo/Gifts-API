@@ -12,7 +12,8 @@ use App\Http\Controllers\{
     ProductController,
     PersonalizationController,
     BrandsController,
-    ProductDetailsController
+    ProductDetailsController,
+    ItemsController
 };
 
 
@@ -51,6 +52,12 @@ Route::resource('users', UsersController::class);
 
  Route::resource('/products', ProductController::class);
 
+ Route::resource('/product_items', ItemsController::class);
+
+
+ Route::post('/storefront', [ProductController::class , 'storejson'])->name('storejson');
+
+ 
  Route::resource('/brands', BrandsController::class);
  Route::get('brands/delete/{id}', [BrandsController::class , 'destroy'])->name('brands.delete');
 
@@ -58,46 +65,3 @@ Route::resource('users', UsersController::class);
  Route::get('personalizations/delete/{id}', [PersonalizationController::class ,'destroy'])->name('personalizations.delete');
 
  Route::resource('/product_details', ProductDetailsController::class);
-// $(document).on("scanButtonDown", "document", function(e) {
-// // get scanned content
-// var scannedProductId = this.getScannedContent();
-
-// // get product
-// var product = getProductById(scannedProductId);
-
-// // add productname to list
-// $("#product_list").append("<li>" + product.name + "</li>");
-// });
-
-// var barcode = [];
-// var interval;
-// document.addEventListener('keydown', function(evt) {
-// if (interval)
-// clearInterval(interval);
-// if (evt.code == 'Enter') {
-// if (barcode)
-// handleBarcode(barcode);
-// barcode = [];
-// return;
-// }
-// if (evt.key != 'Shift')
-// barcode += evt.key;
-// interval = setInterval(() => barcode = '', 20);
-// });
-
-// function handleBarcode(scanned_barcode) {
-// document.querySelector('#last-barcode').innerHTML = scanned_barcode;
-// }
-
-
-// $(document).on("barcode", "document", function(e) {
-// // get scanned content
-// var scannedProductId = this.getScannedContent();
-
-// console.log(scannedProductId);
-// // get barcode
-// var product = getBarcodeById(scannedProductId);
-
-// // add barcodename to list
-// $("#product_list").append("<li>" + product.name + "</li>");
-// });

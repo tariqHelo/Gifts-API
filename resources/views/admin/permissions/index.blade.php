@@ -16,13 +16,13 @@
                 <thead>
                 <tr>
                     <th>
-                            id
+                            #
                     </th>
                     <th>
-                            title
+                            ملاحظات
                     </th>
                     <th>
-                            Status
+                            الإجراءات
                     </th>
                 </tr>
                 </thead>
@@ -33,7 +33,7 @@
                                 {{ $permission->id ?? '' }}
                             </th>
                             <th>
-                                {{ $permission->title ?? '' }}
+                                {{ $permission->note ?? '' }}
 
                             </th>
                             <td>

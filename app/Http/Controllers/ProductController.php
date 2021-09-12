@@ -49,7 +49,7 @@ class ProductController extends Controller
     {  
        // dd($request->all()); 
 
-       $arr = $request->all();
+       $arr = $request->arr[0]['barcods'][0]['name'];
        dd($arr);
       // return response()->json($request->arr[0]);
 
@@ -64,6 +64,21 @@ class ProductController extends Controller
         ]);         
          \Session::flash("msg", "s:تم إضافة المنتج ($product->name) بنجاح");
          return redirect()->route('products.index');
+    }
+
+    public function storejson(Request $request)
+    {  
+       // dd($request->all()); 
+
+       $name = $request->arr[0]['barcods'][0]['name'];
+       $dataJson = json_encode($request->arr[0]['barcods']);
+       //dd($dataJson);
+        $product =Product::create([
+            'name' => $name,
+            'details' => $dataJson,
+        ]);         
+        \Session::flash("msg", "s:تم إضافة المنتج ($product->name) بنجاح");
+        return redirect()->route('products.index');
     }
 
     /**

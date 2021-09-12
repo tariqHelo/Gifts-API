@@ -37,6 +37,7 @@ class PermissionsController extends Controller
     {
         $permission = Permission::create($request->all());
 
+        \Session::flash("msg", "تم إضافة الصلاحية بنجاح");
         return redirect()->route('permissions.index');
 
     }
@@ -48,10 +49,11 @@ class PermissionsController extends Controller
         return view('admin.permissions.edit', compact('permission'));
     }
 
-    public function update(UpdatePermissionRequest $request, Permission $permission)
+    public function update(StorePermissionRequest $request, Permission $permission)
     {
         $permission->update($request->all());
 
+        \Session::flash("msg", "تم الصلاحية رول ($permission->title) بنجاح");
         return redirect()->route('permissions.index');
 
     }
@@ -68,7 +70,7 @@ class PermissionsController extends Controller
         abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $permission->delete();
-
+        session()->flash("msg", "w: تم الحذف بنجاح");
         return back();
 
     }

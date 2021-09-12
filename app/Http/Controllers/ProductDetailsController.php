@@ -75,6 +75,7 @@ class ProductDetailsController extends Controller
       return redirect()->back();
       $input=$request->all();
     }
+    
     public function barcode(Request $request)
     { 
        if ($request->has("val")) :

@@ -179,8 +179,8 @@
 @section('script')
 <script type="text/javascript">
 (function() {
-      let arr = [];
-
+    ///  let arr = [];
+      let  arr = [];
       // Fetching items
     $('#barcode').on('keyup', function (e) {
         e.preventDefault();
@@ -191,9 +191,7 @@
 		          	data:{val:val,_token:'{{ csrf_token() }}'},
                 dataType:"JSON",
                 success:function(data){
-                  if(data !== []){
-                    arr.push(data)
-                  }
+                  arr.push(data)
                   var rows='';
                  console.log(data) 
                  data.barcods.forEach(barcod => {
@@ -214,7 +212,7 @@
        e.preventDefault();
           $.ajax({
               type: "POST",
-              url: "{{ route('products.store') }}",
+              url: "{{ route('storejson') }}",
               dataType: "json",
               data:{arr:arr,_token:'{{ csrf_token() }}'},
               success: function(data){
@@ -227,6 +225,32 @@
     })
 
 
+        // let obj = [
+        //     {
+        //         id: 1,
+        //         name: "100035717"
+        //     },
+        //     {
+        //         id: 2,
+        //         name: "100037061"
+        //     },
+        //     {
+        //         id: 2,
+        //         name: "100035717"
+        //     },
+        //     {
+        //         id: 1,
+        //         name: "100037061"
+        //     }
+        // ];
+        // let  stand = [],
+        //     output = [];
+        // for (let i = 0; i < obj.length; i++) {
+        //     if (stand[obj[i].id]) continue;
+        //     stand[obj[i].id] = true;
+        //     output.push(obj[i]);
+        // }
+        // console.log(output)
 })();  
 
 </script>  

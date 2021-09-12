@@ -18,9 +18,14 @@
         @endif
     </div>
     <div class="form-group">
+     <label>تفاصيل</label>
+     <textarea class="form-control" name="note" rows="3" placeholder="أدخل ...">{{$role->note}}</textarea>
+     </div>
+   </div>
+    <div class="card-footer">
         <button class="btn btn-info" type="submit">
             {{$button}}
         </button>
-    <a href="{{route('roles.index')}}" class="btn btn-danger" type="button"> إلغاء</a>
+        <a href="{{route('roles.index')}}" class="btn btn-danger" type="button"> إلغاء</a>
     </div>
 </div>
