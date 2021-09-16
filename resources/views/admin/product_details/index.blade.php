@@ -144,13 +144,13 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <div class="modal-body">
+                      <div class="modal-body modal-body--barcode">
                         <form action="{{route('products.store')}}"  method="post">
                           @csrf
                           {{csrf_field()}}
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">Message:</label>
-                            <input type="text" onmouseover="this.focus();" name="barcode" id="barcode" class="form-control" placeholder="Type Product Name...">
+                            <input type="text" onmouseover="this.focus();" required name="barcode" id="barcode" class="form-control" placeholder="Type Product Name...">
                           </div>
                            <div class="card-body">
                             <table class="table table-bordered">
@@ -158,6 +158,7 @@
                                 <tr>
                                   <th style="width: 40px">barcode</th>
                                   <th style="width: 40px">name</th>
+                                  <th style="width: 40px">Action</th>
                                 </tr>
                               
                               </thead>
@@ -180,10 +181,12 @@
 <script type="text/javascript">
 (function() {
     ///  let arr = [];
-      let  arr = [];
+    //  let  arr = [];
+         let obj = [];
       // Fetching items
     $('#barcode').on('keyup', function (e) {
         e.preventDefault();
+     
       	let val = $(this).val();
         $.ajax({
              url: '{{route('barcode')}}',
@@ -191,66 +194,62 @@
 		          	data:{val:val,_token:'{{ csrf_token() }}'},
                 dataType:"JSON",
                 success:function(data){
-                  arr.push(data)
-                  var rows='';
-                 console.log(data) 
-                 data.barcods.forEach(barcod => {
-                    rows += 
-                       '<tr>'+
-                          '<td>'+barcod.barcode+'</td>'+
-                          '<td>'+barcod.name+'</td>'+
-                       '</tr>'
-                       	
-                  });
-                  $("#test").append(rows);
-                
+                  obj.push(data)
+                    let  stand = [],
+                    output = [];
+                  for (let i = 0; i < obj.length; i++) {
+                      if (stand[obj[i].id]) continue;
+                      stand[obj[i].id] = true;
+                      output.push(obj[i]);
+                  }
+                  console.log(output);
+                   $("#test tr").remove();
+                  for (let i = 0; i < output.length; i++) {
+                    var rows =`
+                    <tr>
+                        <td>${output[i].barcode}</td>
+                          <td>${output[i].name}</td>
+                          <td>
+                            <a href="javascript:;"data-repeater-delete class="delete-row btn btn-danger btn-sm btn-icon btn-circle mt-repeater-delete">
+                              <i class="fa fa-trash"></i>
+                            </a>
+                          </td>
+                      </tr>`;
+                    $("#test").append(rows);
+                  }
                 }
         });
     });
-    
+     $("body").on("click" , ".delete-row" , function(){
+			  	$(this).parents("tr").remove();
+		  	});
+
+
+
+
     document.getElementById('form').addEventListener('click' , function(e){
        e.preventDefault();
           $.ajax({
               type: "POST",
               url: "{{ route('storejson') }}",
               dataType: "json",
-              data:{arr:arr,_token:'{{ csrf_token() }}'},
+              data:{obj:obj,_token:'{{ csrf_token() }}'},
               success: function(data){
-                    alert("Data Save: " + data);
-              },
-              error: function(data){
-                  alert("Error")
+                $('#barcode').hide();
+               $("#test tr").remove();
+                    obj =  [];
+                    $(".modal-body--barcode").prepend(`
+                      <div class='alert alert-success text-center'>تمت عملية التعديل بنجاح  <i class='fas fa-check-circle'></i></div>
+                    `);
+                    setTimeout(() => {
+                $('#exampleModal1').modal('hide')
+                    }, 3000);     
               }
           });
+
+          
     })
 
-
-        // let obj = [
-        //     {
-        //         id: 1,
-        //         name: "100035717"
-        //     },
-        //     {
-        //         id: 2,
-        //         name: "100037061"
-        //     },
-        //     {
-        //         id: 2,
-        //         name: "100035717"
-        //     },
-        //     {
-        //         id: 1,
-        //         name: "100037061"
-        //     }
-        // ];
-        // let  stand = [],
-        //     output = [];
-        // for (let i = 0; i < obj.length; i++) {
-        //     if (stand[obj[i].id]) continue;
-        //     stand[obj[i].id] = true;
-        //     output.push(obj[i]);
-        // }
-        // console.log(output)
 })();  
 
 </script>  

@@ -12,7 +12,7 @@ use App\Http\Controllers\{
     ProductController,
     PersonalizationController,
     BrandsController,
-    ProductDetailsController,
+    ProductItemsController,
     ItemsController
 };
 
@@ -35,8 +35,8 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
-Route::post('/image', [ProductDetailsController::class , 'image'])->name('image');
-Route::post('/barcode', [ProductDetailsController::class , 'barcode'])->name('barcode');
+Route::post('/image', [ProductItemsController::class , 'image'])->name('image');
+Route::post('/barcode', [ProductItemsController::class , 'barcode'])->name('barcode');
 
 /* Start Admin Route */
 // Permissions
@@ -51,11 +51,12 @@ Route::resource('users', UsersController::class);
  Route::get('categories/delete/{id}', [CategoriesController::class , 'destroy'])->name('category.delete');
 
  Route::resource('/products', ProductController::class);
+ Route::get('product/delete/{id}', [ProductController::class , 'destroy'])->name('products.delete');
 
  Route::resource('/product_items', ItemsController::class);
 
 
- Route::post('/storefront', [ProductController::class , 'storejson'])->name('storejson');
+ Route::post('/storefront', [ProductItemsController::class , 'storejson'])->name('storejson');
 
  
  Route::resource('/brands', BrandsController::class);
@@ -64,4 +65,4 @@ Route::resource('users', UsersController::class);
  Route::resource('/personalizations', PersonalizationController::class);
  Route::get('personalizations/delete/{id}', [PersonalizationController::class ,'destroy'])->name('personalizations.delete');
 
- Route::resource('/product_details', ProductDetailsController::class);
+ Route::resource('/product_details', ProductItemsController::class);

@@ -44,7 +44,7 @@
                         </td>
                         <td>   
                             <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm"><i class='fa fa-edit'></i></a>
-                            <a href="" onclick='return confirm("Are you sure dude?")' class="btn btn-danger btn-sm"><i class='fa fa-trash'></i></a>
+                            <a href="{{ route('products.delete', $product->id) }}" onclick='return confirm("Are you sure dude?")' class="btn btn-danger btn-sm"><i class='fa fa-trash'></i></a>
                       </td>
                     </tr> 
                     @endforeach

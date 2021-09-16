@@ -109,7 +109,7 @@
             <div class="small-box bg-primary">
               <div class="inner">
                 @php 
-                  $items = \App\Models\ProductDetails::count();    
+                  $items = \App\Models\ProductItems::count();    
                 @endphp
                 <h3>{{$items}}</h3>
 
@@ -144,7 +144,7 @@
           <!-- ./col -->
         </div>
         <!-- /.row -->
-       </div>  
+      </div>  
     @endif    
     <!-- /.content -->
   </div>

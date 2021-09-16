@@ -48,11 +48,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {  
        // dd($request->all()); 
-
-       $arr = $request->arr[0]['barcods'][0]['name'];
-       dd($arr);
-      // return response()->json($request->arr[0]);
-
       $dataJson = json_encode($request->data);
      /// dd($dataJson);
         $product =Product::create([
@@ -64,21 +59,6 @@ class ProductController extends Controller
         ]);         
          \Session::flash("msg", "s:تم إضافة المنتج ($product->name) بنجاح");
          return redirect()->route('products.index');
-    }
-
-    public function storejson(Request $request)
-    {  
-       // dd($request->all()); 
-
-       $name = $request->arr[0]['barcods'][0]['name'];
-       $dataJson = json_encode($request->arr[0]['barcods']);
-       //dd($dataJson);
-        $product =Product::create([
-            'name' => $name,
-            'details' => $dataJson,
-        ]);         
-        \Session::flash("msg", "s:تم إضافة المنتج ($product->name) بنجاح");
-        return redirect()->route('products.index');
     }
 
     /**
@@ -101,7 +81,8 @@ class ProductController extends Controller
     public function edit($id)
     {
       $product = Product::find($id);
-      $items = json_decode($product->details , true);
+      $items = json_decode(($product->details),true);
+     // dd($items);
       $categories = Category::pluck('name' , 'id');
 
      // dd($items);
@@ -141,8 +122,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+       $product = Product::find($id);
+       $product->delete();
+      \Session::flash("msg", "w:تم حذف المنتج ($product->name) بنجاح");
+      return redirect()->route('products.index');
     }
 }
